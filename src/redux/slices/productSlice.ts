@@ -3,14 +3,18 @@ import { fetchProducts, Product } from '../../api/api'
 
 export interface ProductState {
     products: Product[]
+    priceSortProducts: Product[]
     loading: boolean
     error: string | null
+    sort: string
 }
 
 const initialState: ProductState = {
-    products: [],
+    products: [] as Product[],
+    priceSortProducts: [] as Product[],
     loading: false,
-    error: null
+    error: null,
+    sort: ''
 }
 
 export const getProducts = createAsyncThunk('/get', async () => {
@@ -20,7 +24,16 @@ export const getProducts = createAsyncThunk('/get', async () => {
 const productSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {},
+    reducers: {
+        sortProducts: (state, action) => {
+            state.priceSortProducts = [...state.products]
+            if (action.payload === 'low') {
+                state.priceSortProducts.sort((product1, product2) => product1.price - product2.price)
+            } else if (action.payload === 'high') {
+                state.priceSortProducts.sort((product1, product2) => product2.price - product1.price)
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getProducts.pending, (state) => {
@@ -29,6 +42,7 @@ const productSlice = createSlice({
             })
             .addCase(getProducts.fulfilled, (state, action) => {
                 state.products = action.payload
+                state.priceSortProducts = action.payload
                 state.loading = false
             })
             .addCase(getProducts.rejected, (state) => {
@@ -38,4 +52,5 @@ const productSlice = createSlice({
     }
 })
 
+export const { sortProducts } = productSlice.actions
 export default productSlice.reducer

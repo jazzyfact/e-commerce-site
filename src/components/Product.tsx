@@ -7,7 +7,7 @@ import Filter from './Filter'
 import ProductItem from './ProductItem'
 import '../scss/product.scss'
 
-interface Product {
+export interface Product {
     id: number
     title: string
     price: number
@@ -16,14 +16,14 @@ interface Product {
 
 type ProductState = {
     products: Product[]
+    priceSortProducts: Product[]
     loading: boolean
     error: string | null
 }
 
 const Product = (): JSX.Element => {
     const dispatch = useDispatch()
-
-    const { products, loading, error } = useSelector<RootState, ProductState>((state) => state.products)
+    const { products, priceSortProducts, loading, error } = useSelector<RootState, ProductState>((state) => state.products)
 
     useEffect(() => {
         dispatch(getProducts())
@@ -41,7 +41,7 @@ const Product = (): JSX.Element => {
         <div>
             <Filter />
             <div className="product-list">
-                {products.map((product: Product) => (
+                {(priceSortProducts.length > 0 ? priceSortProducts : products).map((product: Product) => (
                     <ProductItem key={product.id} product={product} />
                 ))}
             </div>
