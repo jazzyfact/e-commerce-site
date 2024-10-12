@@ -1,12 +1,25 @@
-const CartItem = () => {
+import React from 'react'
+
+export interface CartItemProps {
+    id: number
+    title: string
+    image: string
+    price: number
+    quantity: number
+    handleRemoveCart: (id: number) => void
+}
+
+const CartItem = ({ id, title, image, price, quantity, handleRemoveCart }: CartItemProps): JSX.Element => {
     return (
         <div className="cart-item">
-            <img />
+            <img src={image} alt={title} />
             <div className="item-details">
-                <h3>상품이름</h3>
-                <p>가격x갯수</p>
+                <h3>{title}</h3>
+                <p>
+                    ${price.toFixed(2)} x {quantity}개
+                </p>
             </div>
-            <button>삭제</button>
+            <button onClick={() => handleRemoveCart(id)}>삭제</button>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts, sortProducts, categoryfilters } from '../redux/slices/productSlice'
+import { addShoppingCart } from '../redux/slices/cartSlice'
 import { RootState } from '../redux/store'
 import Spinner from './Spinner'
 import Filter from './Filter'
@@ -32,7 +33,6 @@ const Product = (): JSX.Element => {
         dispatch(getProducts())
     }, [dispatch])
 
-    // 카테고리 변경 시 정렬 유지
     useEffect(() => {
         dispatch(categoryfilters(category))
         dispatch(sortProducts(sort))
@@ -54,12 +54,16 @@ const Product = (): JSX.Element => {
         dispatch(categoryfilters(category))
     }
 
+    const handleAddCart = (product: Product) => {
+        dispatch(addShoppingCart(product))
+    }
+
     return (
         <div>
             <Filter handlePriceSort={handlePriceSort} handleCategory={handleCategory} currentSort={sort} />
             <div className="product-list">
                 {(priceSortProducts.length > 0 ? priceSortProducts : products).map((product: Product) => (
-                    <ProductItem key={product.id} product={product} />
+                    <ProductItem key={product.id} product={product} handleAddCart={handleAddCart} />
                 ))}
             </div>
         </div>

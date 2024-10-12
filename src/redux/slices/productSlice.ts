@@ -30,8 +30,6 @@ const productSlice = createSlice({
         sortProducts: (state, action) => {
             state.sort = action.payload
             const currentProducts = state.category === 'all' ? state.products : state.priceSortProducts
-
-            // 가격 정렬
             if (action.payload === 'low') {
                 state.priceSortProducts = [...currentProducts].sort((product1, product2) => product1.price - product2.price)
             } else if (action.payload === 'high') {
