@@ -1,0 +1,27 @@
+@import './variables';
+@import './global';
+
+header {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: $white;
+    border-bottom: 1px solid #ddd;
+    align-items: center;
+
+    nav {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+
+        a {
+            font-family: 'Pretendard-Regular', sans-serif;
+            font-size: 1rem;
+            color: $dark-gray;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+    }
+}
