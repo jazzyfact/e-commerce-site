@@ -1,13 +1,16 @@
 import { useDispatch } from 'react-redux'
-import { sortProducts } from '../redux/slices/productSlice'
+import { sortProducts, categoryfilters } from '../redux/slices/productSlice'
 import '../scss/product.scss'
 
-const Filter = ({ handlePriceSort }: { handlePriceSort: (value: string) => void }) => {
+const Filter = ({ handlePriceSort, handleCategory, currentSort }: { handlePriceSort: (value: string) => void; handleCategory: (category: string) => void; currentSort: string }) => {
     return (
         <div className="filter-container">
-            <button onClick={() => handlePriceSort('low')}>최저 가격순</button>
-            <button onClick={() => handlePriceSort('high')}>최고 가격순</button>
-            <select>
+            <select onChange={(e) => handlePriceSort(e.target.value)} value={currentSort}>
+                <option value="">가격 정렬</option>
+                <option value="low">최저 가격순</option>
+                <option value="high">최고 가격순</option>
+            </select>
+            <select onChange={(e) => handleCategory(e.target.value)}>
                 <option value="all">전체</option>
                 <option value="electronics">전자기기</option>
                 <option value="jewelery">액세서리</option>

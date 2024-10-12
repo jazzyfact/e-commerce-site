@@ -7,6 +7,7 @@ export interface ProductState {
     loading: boolean
     error: string | null
     sort: string
+    category: string
 }
 
 const initialState: ProductState = {
@@ -14,7 +15,8 @@ const initialState: ProductState = {
     priceSortProducts: [] as Product[],
     loading: false,
     error: null,
-    sort: ''
+    sort: '',
+    category: 'all'
 }
 
 export const getProducts = createAsyncThunk('/get', async () => {
@@ -26,11 +28,26 @@ const productSlice = createSlice({
     initialState,
     reducers: {
         sortProducts: (state, action) => {
-            state.priceSortProducts = [...state.products]
+            state.sort = action.payload
+            const currentProducts = state.category === 'all' ? state.products : state.priceSortProducts
+
+            // 가격 정렬
             if (action.payload === 'low') {
-                state.priceSortProducts.sort((product1, product2) => product1.price - product2.price)
+                state.priceSortProducts = [...currentProducts].sort((product1, product2) => product1.price - product2.price)
             } else if (action.payload === 'high') {
-                state.priceSortProducts.sort((product1, product2) => product2.price - product1.price)
+                state.priceSortProducts = [...currentProducts].sort((product1, product2) => product2.price - product1.price)
+            }
+        },
+        categoryfilters: (state, action) => {
+            state.category = action.payload
+            if (action.payload === 'all') {
+                state.priceSortProducts = [...state.products]
+            } else {
+                state.priceSortProducts = state.products.filter((product) => product.category === action.payload)
+            }
+
+            if (state.sort) {
+                state.priceSortProducts.sort((product1, product2) => (state.sort === 'low' ? product1.price - product2.price : product2.price - product1.price))
             }
         }
     },
@@ -52,5 +69,5 @@ const productSlice = createSlice({
     }
 })
 
-export const { sortProducts } = productSlice.actions
+export const { sortProducts, categoryfilters } = productSlice.actions
 export default productSlice.reducer

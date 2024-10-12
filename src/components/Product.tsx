@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts, sortProducts } from '../redux/slices/productSlice'
+import { getProducts, sortProducts, categoryfilters } from '../redux/slices/productSlice'
 import { RootState } from '../redux/store'
 import Spinner from './Spinner'
 import Filter from './Filter'
@@ -12,6 +12,7 @@ export interface Product {
     title: string
     price: number
     image: string
+    category: string
 }
 
 type ProductState = {
@@ -19,15 +20,23 @@ type ProductState = {
     priceSortProducts: Product[]
     loading: boolean
     error: string | null
+    sort: string
+    category: string
 }
 
 const Product = (): JSX.Element => {
     const dispatch = useDispatch()
-    const { products, priceSortProducts, loading, error } = useSelector<RootState, ProductState>((state) => state.products)
+    const { products, priceSortProducts, loading, error, sort, category } = useSelector<RootState, ProductState>((state) => state.products)
 
     useEffect(() => {
         dispatch(getProducts())
     }, [dispatch])
+
+    // 카테고리 변경 시 정렬 유지
+    useEffect(() => {
+        dispatch(categoryfilters(category))
+        dispatch(sortProducts(sort))
+    }, [category, dispatch, sort])
 
     if (loading) {
         return <Spinner />
@@ -41,9 +50,13 @@ const Product = (): JSX.Element => {
         dispatch(sortProducts(value))
     }
 
+    const handleCategory = (category: string) => {
+        dispatch(categoryfilters(category))
+    }
+
     return (
         <div>
-            <Filter handlePriceSort={handlePriceSort} />
+            <Filter handlePriceSort={handlePriceSort} handleCategory={handleCategory} currentSort={sort} />
             <div className="product-list">
                 {(priceSortProducts.length > 0 ? priceSortProducts : products).map((product: Product) => (
                     <ProductItem key={product.id} product={product} />
