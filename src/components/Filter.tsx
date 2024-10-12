@@ -2,12 +2,7 @@ import { useDispatch } from 'react-redux'
 import { sortProducts } from '../redux/slices/productSlice'
 import '../scss/product.scss'
 
-const Filter = () => {
-    const dispatch = useDispatch()
-    const handlePriceSort = (value: string) => {
-        dispatch(sortProducts(value))
-    }
-
+const Filter = ({ handlePriceSort }: { handlePriceSort: (value: string) => void }) => {
     return (
         <div className="filter-container">
             <button onClick={() => handlePriceSort('low')}>최저 가격순</button>

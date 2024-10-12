@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../redux/slices/productSlice'
+import { getProducts, sortProducts } from '../redux/slices/productSlice'
 import { RootState } from '../redux/store'
 import Spinner from './Spinner'
 import Filter from './Filter'
@@ -37,9 +37,13 @@ const Product = (): JSX.Element => {
         return <div>{error}</div>
     }
 
+    const handlePriceSort = (value: string) => {
+        dispatch(sortProducts(value))
+    }
+
     return (
         <div>
-            <Filter />
+            <Filter handlePriceSort={handlePriceSort} />
             <div className="product-list">
                 {(priceSortProducts.length > 0 ? priceSortProducts : products).map((product: Product) => (
                     <ProductItem key={product.id} product={product} />
