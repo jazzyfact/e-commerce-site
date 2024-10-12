@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Link } from 'react-router-dom'
 import '../scss/header.scss'
 
-export const Header = () => {
+const Header = () => {
     return (
         <BrowserRouter>
             <header>
@@ -14,3 +14,5 @@ export const Header = () => {
         </BrowserRouter>
     )
 }
+
+export default Header

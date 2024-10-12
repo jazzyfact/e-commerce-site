@@ -1,0 +1,36 @@
+@import './global';
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+
+    .product-card {
+        border: 1px solid $light-gray;
+        padding: 10px;
+        text-align: center;
+
+        img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: $gary;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: $blue;
+            color: $white;
+            cursor: pointer;
+        }
+    }
+}
