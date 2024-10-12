@@ -1,5 +1,23 @@
 @import './global';
 
+.filter-container {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 20px;
+
+    select {
+        padding: 5px;
+        font-size: 1rem;
+        border: 1px solid $light-gray;
+        border-radius: 5px;
+    }
+
+    button {
+        margin-right: 20px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+}
 .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -11,9 +29,9 @@
         text-align: center;
 
         img {
-            width: 30px;
-            height: 30px;
-            object-fit: cover;
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
         }
 
         h3 {
@@ -26,7 +44,7 @@
         }
 
         button {
-            padding: 10px;
+            padding: 3.3px;
             border: none;
             background-color: $blue;
             color: $white;

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../redux/slices/productSlice'
 import { RootState } from '../redux/store'
 import Spinner from './Spinner'
+import Filter from './Filter'
+import ProductItem from './ProductItem'
 import '../scss/product.scss'
 
 interface Product {
@@ -12,9 +14,16 @@ interface Product {
     image: string
 }
 
-const Product = () => {
+type ProductState = {
+    products: Product[]
+    loading: boolean
+    error: string | null
+}
+
+const Product = (): JSX.Element => {
     const dispatch = useDispatch()
-    const { products, loading, error } = useSelector((state: RootState) => state.products)
+
+    const { products, loading, error } = useSelector<RootState, ProductState>((state) => state.products)
 
     useEffect(() => {
         dispatch(getProducts())
@@ -25,19 +34,17 @@ const Product = () => {
     }
 
     if (error) {
-        return { error }
+        return <div>{error}</div>
     }
 
     return (
-        <div className="product-list">
-            {products.map((product: Product) => (
-                <div className="product-card" key={product.id}>
-                    <img src={product.image} alt={product.title} />
-                    <h3>{product.title}</h3>
-                    <p>${product.price.toFixed(2)}</p>
-                    <button>장바구니</button>
-                </div>
-            ))}
+        <div>
+            <Filter />
+            <div className="product-list">
+                {products.map((product: Product) => (
+                    <ProductItem key={product.id} product={product} />
+                ))}
+            </div>
         </div>
     )
 }
