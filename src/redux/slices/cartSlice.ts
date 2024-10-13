@@ -40,7 +40,6 @@ const cartSlice = createSlice({
             } else {
                 state.items.push({ ...action.payload, quantity: 1 })
             }
-            // 총 금액 업데이트
             state.totalAmount = state.items.reduce((total, item) => total + item.price * item.quantity, 0)
         },
         deleteShoppingCart: (state, action: PayloadAction<number>) => {

@@ -1,5 +1,3 @@
-import React from 'react'
-
 export interface CartItemProps {
     id: number
     title: string
