@@ -40,11 +40,19 @@ const cartSlice = createSlice({
             } else {
                 state.items.push({ ...action.payload, quantity: 1 })
             }
+            // 총 금액 업데이트
             state.totalAmount = state.items.reduce((total, item) => total + item.price * item.quantity, 0)
         },
         deleteShoppingCart: (state, action: PayloadAction<number>) => {
-            state.items = state.items.filter((item) => item.id !== action.payload)
-            state.totalAmount = state.items.reduce((total, item) => total + item.price * item.quantity, 0)
+            const shoppingCartItem = state.items.find((item) => item.id === action.payload)
+            if (shoppingCartItem) {
+                if (shoppingCartItem.quantity > 1) {
+                    shoppingCartItem.quantity -= 1
+                } else {
+                    state.items = state.items.filter((item) => item.id !== action.payload)
+                }
+                state.totalAmount = state.items.reduce((total, item) => total + item.price * item.quantity, 0)
+            }
         }
     }
 })

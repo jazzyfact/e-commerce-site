@@ -6,10 +6,10 @@ export interface CartItemProps {
     image: string
     price: number
     quantity: number
-    handleRemoveCart: (id: number) => void
+    handleDeleteCart: (id: number) => void
 }
 
-const CartItem = ({ id, title, image, price, quantity, handleRemoveCart }: CartItemProps): JSX.Element => {
+const CartItem = ({ id, title, image, price, quantity, handleDeleteCart }: CartItemProps): JSX.Element => {
     return (
         <div className="cart-item">
             <img src={image} alt={title} />
@@ -19,7 +19,7 @@ const CartItem = ({ id, title, image, price, quantity, handleRemoveCart }: CartI
                     ${price.toFixed(2)} x {quantity}개
                 </p>
             </div>
-            <button onClick={() => handleRemoveCart(id)}>삭제</button>
+            <button onClick={() => handleDeleteCart(id)}>삭제</button>
         </div>
     )
 }
