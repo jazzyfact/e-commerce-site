@@ -61,7 +61,7 @@ const Product = (): JSX.Element => {
     return (
         <div>
             <Filter handlePriceSort={handlePriceSort} handleCategory={handleCategory} currentSort={sort} />
-            <div className="product-list">
+            <div className={'product-list'}>
                 {(priceSortProducts.length > 0 ? priceSortProducts : products).map((product: Product) => (
                     <ProductItem key={product.id} product={product} handleAddCart={handleAddCart} />
                 ))}

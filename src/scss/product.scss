@@ -1,5 +1,11 @@
 @import './global';
 
+.product-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
 .filter-container {
     display: flex;
     justify-content: right;
@@ -18,10 +24,14 @@
         font-size: 1rem;
     }
 }
+
 .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    max-width: 800px;
+    width: 100%;
+    min-height: 60vh;
 
     .product-card {
         border: 1px solid $light-gray;
@@ -35,11 +45,11 @@
         }
 
         h3 {
-            font-size: 1.2rem;
+            font-size: 0.8rem;
         }
 
         p {
-            font-size: 1rem;
+            font-size: 0.7rem;
             color: $gary;
         }
 
@@ -49,6 +59,42 @@
             background-color: $blue;
             color: $white;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: darken($blue, 10%);
+            }
         }
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        padding: 0 100px;
+
+        .product-card {
+            width: 300px;
+        }
+    }
+    .filter-container {
+        margin-right: 90px;
+    }
+}
+
+@media (max-width: 767px) {
+    .product-list {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+    .filter-container {
+        margin-right: 20px;
     }
 }

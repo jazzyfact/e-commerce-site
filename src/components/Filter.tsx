@@ -1,5 +1,3 @@
-import { useDispatch } from 'react-redux'
-import { sortProducts, categoryfilters } from '../redux/slices/productSlice'
 import '../scss/product.scss'
 
 const Filter = ({ handlePriceSort, handleCategory, currentSort }: { handlePriceSort: (value: string) => void; handleCategory: (category: string) => void; currentSort: string }) => {
