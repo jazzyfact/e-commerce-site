@@ -1,0 +1,35 @@
+@import './global';
+
+header {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: $white;
+    border-bottom: 1px solid $light-gray;
+    align-items: center;
+
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        a {
+            font-size: 1rem;
+            color: $dark-gray;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        span {
+            font-size: 1.3rem;
+        }
+        .cart-count {
+            font-size: 1.3rem;
+            color: $blue;
+        }
+    }
+}
