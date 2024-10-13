@@ -1,11 +1,5 @@
+import { Product } from '../api/api'
 import '../scss/product.scss'
-
-export interface Product {
-    id: number
-    title: string
-    price: number
-    image: string
-}
 
 interface ProductItemProps {
     product: Product
